@@ -1,14 +1,14 @@
 # Db2 Jupyter Notebook Extensions
-A Jupyter notebook and magic functions to demonstrate Db2 LUW 11 features.
+A Jupyter notebook and magic functions to demonstrate Db2 on Cloud features.
 
 This code is imported as a Jupyter notebook extension in any notebooks you create with Db2 code in it. Place the following line of code in any notebook that you want to use these commands with:
 <pre>
-&#37;run db2.ipynb
+&#37;run db2re.ipynb
 </pre>
 
 This code defines a Jupyter/Python magic command called %sql which allows you to execute Db2 specific calls to 
 the database. There are other packages available for manipulating databases, but this one has been specifically
-designed for demonstrating a number of the SQL features available in Db2.
+designed for demonstrating a number of the SQL features available in Db2 on Cloud.
 
 There are two ways of executing the %sql command. A single line SQL statement would use the
 line format of the magic command:
@@ -39,23 +39,21 @@ A CONNECT by itself will attempt to reconnect to the database using previously u
 connect, it will prompt the user for additional information. 
 
 The CONNECT command has the following format:
-<pre>
-%sql CONNECT TO &lt;database&gt; USER &lt;userid&gt; USING &lt;password | ?&gt; HOST &lt;ip address&gt; PORT &lt;port number&gt;
-</pre>
-If you use a "?" for the password field, the system will prompt you for a password. This avoids typing the 
-password as clear text on the screen. If a connection is not successful, the system will print the error
-message associated with the connect request.
+```
+%sql CONNECT CREDENTIALS <var>
+```
+
+You need to supply a variable that contains all of the details required to connect to Db2 on Cloud. These credentials area available from your Db2 on Cloud service. Once you copy these credentials into your notebooks, assign them to variable and then issue the `CONNECT` call.
 
 If the connection is successful, the parameters are saved on your system and will be used the next time you
-run a SQL statement, or when you issue the %sql CONNECT command with no parameters.
-
+run a CONNECT CREDENTIALS <var> command. If the variable is not defined in your notebook, the system will look for the value on disk and will use that. 
+   
 In addition to the -d option, there are a number different options that you can specify at the beginning of 
 the SQL:
 
 - -d - Delimiter: Change SQL delimiter to "@" from ";"
 - -q - Quiet: Quiet results - no answer set or messages returned from the function
 - -r - Return the result set as a data frame for Python usage
-- -t - Time: Time the following SQL statement and return the number of times it executes in 1 second
 - -j - JSON: Create a pretty JSON representation. Only the first column is formatted
 - -a - All: Return all rows in answer set and do not limit display
 - -pb - Plot Bar: Plot the results as a bar chart
@@ -71,7 +69,7 @@ SQL command requires it. For instance, the following example will find employee 
 empno = '000010'
 %sql SELECT LASTNAME FROM EMPLOYEE WHERE EMPNO='{empno}'
 </pre>
-The other option is to use a colon in front of a variable name and then no quotes are required.
+The other option is to use a colon in front of a variable name.
 <pre>
-%sql SELECT LASTNAME FROM EMPLOYEE WHERE EMPNO=:empno
+%sql SELECT LASTNAME FROM EMPLOYEE WHERE EMPNO=':empno'
 </pre>
