@@ -74,3 +74,5 @@ The other option is to use a colon in front of a variable name.
 ```
 %sql SELECT LASTNAME FROM EMPLOYEE WHERE EMPNO=':empno'
 ```
+
+For videos, product tours, and access to a Proof-of-concept systems, visit ![DTE-Live](https://ibm.biz/dte-live "Db2 on Cloud").
