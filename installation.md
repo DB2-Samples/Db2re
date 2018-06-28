@@ -7,7 +7,7 @@ You need to have Jupyter notebook installed on your system, which also needs Pyt
 ### Anaconda or Miniconda
 Anaconda is an Open Data Science Platform that is powered by Python http://www.continuum.io. The platform keeps track of packages and their dependencies for development with Jupyter notebooks and Python. This makes it very easy to install extensions for Python without having to manually install everything.
 
-Download the Anaconda or Miniconda package applicable to your platform. Miniconda creates the minimal system required for using Python and Jupyter, while Anaconda installs all major packages. There are two versions of Python - V2 or V3. While it doesn't matter which one you use for most notebooks, there are some situations where you may want to use the Python 2 library. For Windows I would recommend using Python 2 in order to use the free Microsoft Compiler for Python. This becomes important when you want to add the ibm_db package to connect to a DB2 server.
+Download the Anaconda or Miniconda package applicable to your platform. Miniconda creates the minimal system required for using Python and Jupyter, while Anaconda installs all major packages. There are two versions of Python - V2 or V3. While it doesn't matter which one you use for most notebooks, there are some situations where you may want to use the Python 2 library. 
 
 After installing Anaconda/Miniconda, you should issue the following commands from a shell that will update and install components required by the notebook.
 
@@ -27,20 +27,6 @@ jupyter notebook --no-browser (runs as a service)
 ```
 The first command will open up a browser window that displays your notebooks. You can click on one of these notebooks to see the contents. If no notebooks are available, you will need to move the files in the Github jupyter directory to a local folder on your system that the program can access.
 
-### Db2 Extensions
+### Db2 Extensions with RESTful APIs
 
-To create a connection to Db2 with the Python Db2 extensions you must install the ibm_db package. This package adds appropriate database commands to Python so that it can access the data directly. The ibm_db package is not available as part of the Anaconda/Miniconda package so you need to use a different command to install it.
-
-For the Linux environments, a compiler is already installed that will build the ibm_db extensions. You only need to issue the following command to install the DB2 drivers:
-```
-easy_install ibm_db
-```
-On Windows, there is no default compiler. For Python V2, Microsoft makes available a C compiler just for Python usage. To find this compiler, search for "Python 2.7 C Compiler Windows" and then download and install this compiler. Once that is done you may also have to install the Db2 Client drivers. These drivers are part of a Db2 database installation, so you may already have them installed. If not, search for the DB2 Client Drivers and download one appropriate for your platform. These drivers are needed for compiling the code.
-
-Once you've installed the Db2 driver, note its location on disk. The following commands need to be issued to get the driver properly installed.
-```
-set IBM_DB_HOME=c:\Program Files\IBM\SQLLIB\    -- Location of DB2 installation
-cd Program files\ibm\sqllib\dsdriver\python32   -- Move to the directory in your command line
-easy_install ibm_db
-```
-When the command completes you will have access to Db2 from within the Jupyter notebooks.
+To create a connection to Db2 with the Python Db2 extensions you must run the `db2re.ipynb` notebook from within your Jupyter Notebook. This will load the required libraries for communicating with Db2 using RESTful API calls. There is no need to install a Db2 driver when using these RESTful APIs. Only Db2 on Cloud is supported with this package. To use Db2 on Docker, or natively on an operating system, please refer to the Db2 Jupyter Notebook libraries instead.
